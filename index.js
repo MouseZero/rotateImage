@@ -24,10 +24,18 @@ function rotatePixal (i1, i2, matrix) {
   matrix[i2Inverse][i1] = bottomRight
 }
 
+console.log('---- before rotate -----')
 console.log(square)
-rotatePixal(0, 0, square)
-rotatePixal(0, 1, square)
-rotatePixal(0, 2, square)
-rotatePixal(0, 3, square)
-rotatePixal(0, 4, square)
+console.log('-----------')
+
+// Iterate through rings
+for (let ring = 0; ring < square.length/2; ring++) {
+  // Iterate though pixels that need rotation
+  for (let i = ring; i < square.length - 1 - ring; i++) {
+    rotatePixal(ring, i, square)
+  }
+}
+
+console.log('---- after rotate -----')
 console.log(square)
+console.log('-----------')
