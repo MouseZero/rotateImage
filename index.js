@@ -8,17 +8,26 @@ const square = [
 ]
 
 function rotatePixal (i1, i2, matrix) {
-  const topLeft = matrix[i1][i1]
-  const topRight = matrix[i1][i2]
-  const bottomRight = matrix[i2][i2]
-  const bottomLeft = matrix[i2][i1]
-  matrix[i1][i2] = topLeft
-  matrix[i2][i2] = topRight
-  matrix[i2][i1] = bottomRight
-  matrix[i1][i1] = bottomLeft
+  const i1Inverse = matrix.length - 1 - i1
+  const i2Inverse = matrix.length - 1 - i2
+
+  // Get 4 pixels that need rotating
+  const topLeft = matrix[i1][i2]
+  const topRight = matrix[i2][i1Inverse]
+  const bottomRight = matrix[i1Inverse][i2Inverse]
+  const bottomLeft = matrix[i2Inverse][i1]
+
+  // Rotate the new pixels
+  matrix[i1][i2] = bottomLeft
+  matrix[i2][i1Inverse] = topLeft
+  matrix[i1Inverse][i2Inverse] = topRight
+  matrix[i2Inverse][i1] = bottomRight
 }
+
 console.log(square)
-const i = 0
-const j = square.length - 1 - i
-rotatePixal(i, j, square)
+rotatePixal(0, 0, square)
+rotatePixal(0, 1, square)
+rotatePixal(0, 2, square)
+rotatePixal(0, 3, square)
+rotatePixal(0, 4, square)
 console.log(square)
