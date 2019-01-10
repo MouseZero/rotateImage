@@ -7,34 +7,38 @@ const square = [
   [31, 32, 33, 34, 35, 36]
 ]
 
-function rotatePixal (i1, i2, matrix) {
-  const i1Inverse = matrix.length - 1 - i1
-  const i2Inverse = matrix.length - 1 - i2
+function rotatePixal (i1, i2, square) {
+  const i1Inverse = square.length - 1 - i1
+  const i2Inverse = square.length - 1 - i2
 
   // Get 4 pixels that need rotating
-  const topLeft = matrix[i1][i2]
-  const topRight = matrix[i2][i1Inverse]
-  const bottomRight = matrix[i1Inverse][i2Inverse]
-  const bottomLeft = matrix[i2Inverse][i1]
+  const topLeft = square[i1][i2]
+  const topRight = square[i2][i1Inverse]
+  const bottomRight = square[i1Inverse][i2Inverse]
+  const bottomLeft = square[i2Inverse][i1]
 
   // Rotate the new pixels
-  matrix[i1][i2] = bottomLeft
-  matrix[i2][i1Inverse] = topLeft
-  matrix[i1Inverse][i2Inverse] = topRight
-  matrix[i2Inverse][i1] = bottomRight
+  square[i1][i2] = bottomLeft
+  square[i2][i1Inverse] = topLeft
+  square[i1Inverse][i2Inverse] = topRight
+  square[i2Inverse][i1] = bottomRight
+}
+
+function rotateGridInPlace (square) {
+  for (let ring = 0; ring < square.length/2; ring++) {
+    // Iterate though pixels that need rotation
+    for (let i = ring; i < square.length - 1 - ring; i++) {
+      rotatePixal(ring, i, square)
+    }
+  }
+
 }
 
 console.log('---- before rotate -----')
 console.log(square)
 console.log('-----------')
 
-// Iterate through rings
-for (let ring = 0; ring < square.length/2; ring++) {
-  // Iterate though pixels that need rotation
-  for (let i = ring; i < square.length - 1 - ring; i++) {
-    rotatePixal(ring, i, square)
-  }
-}
+rotateGridInPlace(square)
 
 console.log('---- after rotate -----')
 console.log(square)
